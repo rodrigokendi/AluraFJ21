@@ -3,7 +3,11 @@ package br.com.caelum.jdbc.dao;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 import br.com.caelum.jdbc.ConnectionFactory;
 import br.com.caelum.jdbc.modelo.Contato;
@@ -35,6 +39,47 @@ public class ContatoDAO {
 			}
 
 		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+	}
+
+	public List<Contato> busca(Contato contato) {
+		String sql = "select * from contatos";
+
+		try {
+			PreparedStatement stmt = conexao.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			List<Contato> contatos = new ArrayList<>();
+
+			while (rs.next()) {
+				Long id = rs.getLong("id");
+				String nome = rs.getString("nome");
+				String email = rs.getString("email");
+				String endereco = rs.getString("endereco");
+				Date dataNascimento = rs.getDate("dataNascimento");
+
+				Contato contatoLista = new Contato();
+
+				contatoLista.setId(id);
+				contatoLista.setNome(nome);
+				contatoLista.setEmail(email);
+				contatoLista.setEndereco(endereco);
+
+				Calendar calendario = Calendar.getInstance();
+				calendario.setTime(dataNascimento);
+
+				contatoLista.setDataNascimento(calendario);
+
+				contatos.add(contatoLista);
+
+			}
+
+			return contatos;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 

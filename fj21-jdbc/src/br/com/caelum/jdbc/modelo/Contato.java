@@ -1,5 +1,6 @@
 package br.com.caelum.jdbc.modelo;
 
+
 import java.util.Calendar;
 
 public class Contato {
@@ -14,7 +15,7 @@ public class Contato {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -49,4 +50,12 @@ public class Contato {
 	public void setDataNascimento(Calendar dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
+
+	public String toString() {
+
+		return "id:" + id + "\n" + "nome: " + nome + "\n" + "ëmail: " + email + "\n" + "endereco: " + endereco + "\n"
+				+ "data de nascimento: " + dataNascimento.getTime();
+
+	}
+
 }
