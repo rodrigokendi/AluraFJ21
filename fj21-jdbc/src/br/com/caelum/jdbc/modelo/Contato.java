@@ -51,11 +51,6 @@ public class Contato {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public String toString() {
 
-		return "id:" + id + "\n" + "nome: " + nome + "\n" + "ëmail: " + email + "\n" + "endereco: " + endereco + "\n"
-				+ "data de nascimento: " + dataNascimento.getTime();
-
-	}
 
 }
