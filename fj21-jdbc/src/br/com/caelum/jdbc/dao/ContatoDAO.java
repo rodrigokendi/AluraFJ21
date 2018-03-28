@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -80,10 +81,81 @@ public class ContatoDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			//throw new RuntimeException(e);
+			// throw new RuntimeException(e);
 			throw new DAOException();
 		}
 
+	}
+
+	public void pesquisaPorId(int id) {
+		String sql = "select * from contatos where id = ?";
+
+		try {
+			PreparedStatement stmt = conexao.prepareStatement(sql);
+			stmt.setLong(1, id);
+			ResultSet rs = stmt.executeQuery();
+
+			if (!rs.next()) {
+				System.out.println("Não há registro com id = " + id);
+			} else {
+
+				long id1 = rs.getLong("id");
+				String nome = rs.getString("nome");
+				String email = rs.getString("email");
+				String endereco = rs.getString("endereco");
+				Date dataNascimento = rs.getDate("dataNascimento");
+
+				Contato contato = new Contato();
+
+				contato.setId(id1);
+				contato.setNome(nome);
+				contato.setEmail(email);
+				contato.setEndereco(endereco);
+
+				Calendar calendario = Calendar.getInstance();
+				calendario.setTime(dataNascimento);
+
+				contato.setDataNascimento(calendario);
+				contato.imprime();
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
+	}
+	
+	public void altera(int id) {
+		String sql = "update contatos set nome = ? where id = ?";
+		//?, email = ?, endereco = ?, dataNascimento = ?"
+		
+		try {
+			
+			Contato contato =  new Contato();
+			PreparedStatement stmt = conexao.prepareStatement(sql);
+			stmt.setLong(2, 1);
+			
+			stmt.setString(1, contato.getNome());
+			//stmt.setString(2, contato.getEmail());
+			//stmt.setString(3, contato.getEndereco());
+			//stmt.setDate(4, new Date(contato.getDataNascimento().getTimeInMillis()));
+			
+			int result = stmt.executeUpdate();
+			System.out.println(sql + contato.getNome() + contato.getId());
+			
+			if(result >0) {
+				System.out.println("Alteração de dados com sucesso!");
+				contato.imprime();
+			}else {
+				System.out.println("Houve algum erro na atualização de seus dados");
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void close() throws SQLException {
