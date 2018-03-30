@@ -30,7 +30,7 @@ public class TestaConexao {
 			 
 
 			ContatoDAO contatoDao = new ContatoDAO();
-			List<Contato> contatos = contatoDao.pesquisaPorNome("R");
+			List<Contato> contatos = contatoDao.pesquisaPorNome("Jorge");
 			//Contato contact = contatoDao.pesquisaPorId(1);
 			//contatoDao.pesquisaPorId(1);
 		//	contato.setNome("rodrigo kendi");

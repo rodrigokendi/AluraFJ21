@@ -121,6 +121,9 @@ public class FuncionarioDAO {
 			ResultSet rs = stmt.executeQuery();
 			List<Funcionario> funcionarios = new ArrayList<>();
 
+			if (!rs.isBeforeFirst()) {
+				System.out.println("Não foram encontrado(s) registro(s)");
+			}
 			while (rs.next()) {
 				Long id = rs.getLong("id");
 				String nome = rs.getString("nome");

@@ -131,9 +131,13 @@ public class ContatoDAO {
 
 		try {
 			PreparedStatement stmt = conexao.prepareStatement(sql);
-			stmt.setString(1, "%" + nomes + "%");
+			stmt.setString(1, nomes + "%");
 			ResultSet rs = stmt.executeQuery();
 			List<Contato> contatos = new ArrayList<>();
+
+			if (!rs.isBeforeFirst()) {
+				System.out.println("Não foram encontrado(s) registro(s)");
+			}
 
 			while (rs.next()) {
 				Long id = rs.getLong("id");
