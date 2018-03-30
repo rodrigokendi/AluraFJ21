@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -96,7 +95,7 @@ public class ContatoDAO {
 			ResultSet rs = stmt.executeQuery();
 
 			if (!rs.next()) {
-				System.out.println("Não há registro com id = " + id);
+				System.out.println("Não há registro!");
 			} else {
 
 				long id1 = rs.getLong("id");
@@ -126,36 +125,100 @@ public class ContatoDAO {
 		}
 
 	}
-	
-	public void altera(int id) {
-		String sql = "update contatos set nome = ? where id = ?";
-		//?, email = ?, endereco = ?, dataNascimento = ?"
-		
+
+	public List<Contato> pesquisaPorNome(String nomes) {
+		String sql = "select * from contatos where nome like ?";
+
 		try {
-			
-			Contato contato =  new Contato();
 			PreparedStatement stmt = conexao.prepareStatement(sql);
-			stmt.setLong(2, 1);
-			
-			stmt.setString(1, contato.getNome());
-			//stmt.setString(2, contato.getEmail());
-			//stmt.setString(3, contato.getEndereco());
-			//stmt.setDate(4, new Date(contato.getDataNascimento().getTimeInMillis()));
-			
-			int result = stmt.executeUpdate();
-			System.out.println(sql + contato.getNome() + contato.getId());
-			
-			if(result >0) {
-				System.out.println("Alteração de dados com sucesso!");
-				contato.imprime();
-			}else {
-				System.out.println("Houve algum erro na atualização de seus dados");
+			stmt.setString(1, "%" + nomes + "%");
+			ResultSet rs = stmt.executeQuery();
+			List<Contato> contatos = new ArrayList<>();
+
+			while (rs.next()) {
+				Long id = rs.getLong("id");
+				String nome = rs.getString("nome");
+				String email = rs.getString("email");
+				String endereco = rs.getString("endereco");
+				Date dataNascimento = rs.getDate("dataNascimento");
+
+				Contato contatoLista = new Contato();
+
+				contatoLista.setId(id);
+				contatoLista.setNome(nome);
+				contatoLista.setEmail(email);
+				contatoLista.setEndereco(endereco);
+
+				Calendar calendario = Calendar.getInstance();
+				calendario.setTime(dataNascimento);
+
+				contatoLista.setDataNascimento(calendario);
+
+				contatos.add(contatoLista);
+
 			}
-			
+
+			return contatos;
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			// throw new RuntimeException(e);
+			throw new DAOException();
 		}
+
+	}
+
+	public void altera(Contato contato) {
+		String sql = "update contatos set nome = ? , email = ?, endereco = ?, dataNascimento = ? where id = ?";
+
+		try {
+
+			PreparedStatement stmt = conexao.prepareStatement(sql);
+
+			stmt.setString(1, contato.getNome());
+			stmt.setString(2, contato.getEmail());
+			stmt.setString(3, contato.getEndereco());
+			stmt.setDate(4, new Date(contato.getDataNascimento().getTimeInMillis()));
+			stmt.setLong(5, contato.getId());
+
+			int result = stmt.executeUpdate();
+
+			if (result > 0) {
+				System.out.println("Alteração de dados com sucesso!");
+				contato.imprime();
+			} else {
+				System.out.println("Houve algum erro na atualização de seus dados");
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			throw new RuntimeException(e);
+		}
+	}
+
+	public void remove(Contato contato) {
+		String sql = "delete from contatos where id = ?";
+
+		try {
+			PreparedStatement stmt = conexao.prepareStatement(sql);
+
+			stmt.setLong(1, contato.getId());
+
+			int result = stmt.executeUpdate();
+
+			if (result > 0) {
+				System.out.println("Registro removido com sucesso");
+			} else {
+				System.out.println("Nenhum registro foi removido");
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+
 	}
 
 	public void close() throws SQLException {
