@@ -1,8 +1,8 @@
 package br.com.caelum.jdbc.modelo;
 
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 public class Contato {
 
@@ -52,13 +52,24 @@ public class Contato {
 		this.dataNascimento = dataNascimento;
 	}
 
-    public void imprime() {
-    	System.out.println("Nome: " + getNome());
+	public void imprime() {
+		System.out.println("Nome: " + getNome());
 		System.out.println("Email: " + getEmail());
 		System.out.println("Endereço: " + getEndereco());
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-		System.out.println(
-				"Data de Nascimento: " + dateFormat.format(getDataNascimento().getTime()) + "\n");
-    }
+		System.out.println("Data de Nascimento: " + dateFormat.format(getDataNascimento().getTime()) + "\n");
+	}
+
+	public void imprimeLista(List<Contato> contato) {
+
+		for (Contato contatoLista : contato) {
+			System.out.println("Nome: " + contatoLista.getNome());
+			System.out.println("Email: " + contatoLista.getEmail());
+			System.out.println("Endereço: " + contatoLista.getEndereco());
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+			System.out.println(
+					"Data de Nascimento: " + dateFormat.format(contatoLista.getDataNascimento().getTime()) + "\n");
+		}
+	}
 
 }

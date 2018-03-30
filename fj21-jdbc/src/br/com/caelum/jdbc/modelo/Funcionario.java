@@ -1,5 +1,7 @@
 package br.com.caelum.jdbc.modelo;
 
+import java.util.List;
+
 public class Funcionario {
 
 	private Long id;
@@ -43,6 +45,15 @@ public class Funcionario {
 		System.out.println("Nome: " + getNome());
 		System.out.println("Usuario: " + getUsuario());
 		System.out.println("Senha: " + getSenha());
+	}
+
+	public void imprimeLista(List<Funcionario> funcionarios) {
+
+		for (Funcionario funcionarioLista : funcionarios) {
+			System.out.println("Nome: " + funcionarioLista.getNome());
+			System.out.println("Usuario: " + funcionarioLista.getUsuario());
+			System.out.println("Senha: " + funcionarioLista.getSenha());
+		}
 	}
 
 }
