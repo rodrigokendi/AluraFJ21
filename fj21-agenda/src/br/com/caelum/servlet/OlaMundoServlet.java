@@ -18,7 +18,7 @@ public class OlaMundoServlet extends HttpServlet {
 
 		PrintWriter pw = response.getWriter();
 		pw.println("<html><body><h1>");
-		pw.println("Ola Mundo");
+		pw.println("Ola Mundo Servlet");
 		pw.println("</h1></body></html>");
 	}
 
