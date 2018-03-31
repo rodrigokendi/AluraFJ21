@@ -23,6 +23,7 @@ public class SalvarContatoServlet extends HttpServlet {
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
 			PrintWriter out = resp.getWriter();
+			
 
 			// recebe parametro do request
 			String nome = req.getParameter("nome");
@@ -33,6 +34,7 @@ public class SalvarContatoServlet extends HttpServlet {
 			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 			Calendar calendario = Calendar.getInstance();
 			calendario.setTime(format.parse(dataNascimento));
+			
 			// cria objeto contato
 			Contato contato = new Contato();
 			contato.setNome(nome);
