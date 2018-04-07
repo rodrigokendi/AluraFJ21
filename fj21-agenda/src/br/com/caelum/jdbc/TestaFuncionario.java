@@ -9,12 +9,16 @@ public class TestaFuncionario {
 		// TODO Auto-generated method stub
 		Funcionario funcionario = new Funcionario();
 		
-		funcionario.setNome("José");
-		funcionario.setUsuario("Zé");
-		funcionario.setSenha("1234R");
+		/*funcionario.setNome("Pedro");
+		funcionario.setUsuario("pedro");
+		funcionario.setSenha("1234R");*/
 		
 		FuncionarioDAO funcionarioDao = new FuncionarioDAO();
-		funcionarioDao.adiciona(funcionario);
+		//funcionarioDao.adiciona(funcionario);
+		
+		
+		funcionario.setId((long) 2);
+		funcionarioDao.remove(funcionario);
 
 	}
 
