@@ -14,9 +14,9 @@ public class FuncionarioDAO {
 
 	private Connection conexao;
 
-	public FuncionarioDAO() {
+	/*public FuncionarioDAO() {
 		this.conexao = new ConnectionFactory().getConnection();
-	}
+	}*/
 
 	public void adiciona(Funcionario funcionario) {
 		String sql = "insert into funcionarios (nome,usuario,senha) values(?,?,?)";

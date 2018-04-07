@@ -6,8 +6,9 @@ import java.sql.SQLException;
 
 public class ConnectionFactory {
 
-	public Connection getConnection() {
+	public Connection getConnection() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			return DriverManager.getConnection("jdbc:mysql://localhost:3308/fj21", "root", "");
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

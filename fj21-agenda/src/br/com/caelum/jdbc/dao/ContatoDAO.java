@@ -17,7 +17,18 @@ public class ContatoDAO {
 	private Connection conexao;
 
 	public ContatoDAO() {
-		this.conexao = new ConnectionFactory().getConnection();
+		try {
+			this.conexao = new ConnectionFactory().getConnection();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void adiciona(Contato contato) {
@@ -44,46 +55,36 @@ public class ContatoDAO {
 
 	}
 
-	public List<Contato> busca(Contato contato) {
-		String sql = "select * from contatos";
+	public List<Contato> getList() {
+
+		List<Contato> contatos = new ArrayList<>();
 
 		try {
-			PreparedStatement stmt = conexao.prepareStatement(sql);
-			ResultSet rs = stmt.executeQuery();
-			List<Contato> contatos = new ArrayList<>();
+			PreparedStatement smtm = this.conexao.prepareStatement("select * from contatos");
+			ResultSet resultSet = smtm.executeQuery(); // control+2 L
 
-			while (rs.next()) {
-				Long id = rs.getLong("id");
-				String nome = rs.getString("nome");
-				String email = rs.getString("email");
-				String endereco = rs.getString("endereco");
-				Date dataNascimento = rs.getDate("dataNascimento");
-
-				Contato contatoLista = new Contato();
-
-				contatoLista.setId(id);
-				contatoLista.setNome(nome);
-				contatoLista.setEmail(email);
-				contatoLista.setEndereco(endereco);
-
+			while (resultSet.next()) {
+				Contato contato = new Contato();
+				contato.setId((long) resultSet.getInt("id"));
+				contato.setNome(resultSet.getString("nome"));
+				contato.setEmail(resultSet.getString("email"));
+				contato.setEndereco(resultSet.getString("endereco"));
 				Calendar calendario = Calendar.getInstance();
-				calendario.setTime(dataNascimento);
+				calendario.setTime(resultSet.getDate("dataNascimento"));
+				contato.setDataNascimento(calendario);
 
-				contatoLista.setDataNascimento(calendario);
-
-				contatos.add(contatoLista);
+				contatos.add(contato);
 
 			}
-
-			return contatos;
+			resultSet.close();
+			smtm.close();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-			// throw new RuntimeException(e);
-			throw new DAOException();
+			throw new RuntimeException();
 		}
 
+		return contatos;
 	}
 
 	public void pesquisaPorId(int id) {

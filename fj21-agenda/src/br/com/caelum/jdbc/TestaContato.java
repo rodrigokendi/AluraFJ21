@@ -54,8 +54,8 @@ public class TestaContato {
 
 			ContatoDAO contatoDao = new ContatoDAO();
 			//List<Contato> contatos = contatoDao.pesquisaPorNome("Teste");
-			List<Contato> contatos = contatoDao.busca(contato);
-			contato.imprimeLista(contatos);
+			//List<Contato> contatos = contatoDao.get(contato);
+			//contato.imprimeLista(contatos);
 		
 
 			contatoDao.close();
