@@ -1,15 +1,18 @@
 package br.com.caelum.agenda.modelo;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 public class Contato {
-	private Long id;
+
+	private long id;
 	private String nome;
 	private String email;
 	private String endereco;
 	private Calendar dataNascimento;
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -47,6 +50,26 @@ public class Contato {
 
 	public void setDataNascimento(Calendar dataNascimento) {
 		this.dataNascimento = dataNascimento;
+	}
+
+	public void imprime() {
+		System.out.println("Nome: " + getNome());
+		System.out.println("Email: " + getEmail());
+		System.out.println("Endere�o: " + getEndereco());
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		System.out.println("Data de Nascimento: " + dateFormat.format(getDataNascimento().getTime()) + "\n");
+	}
+
+	public void imprimeLista(List<Contato> contato) {
+
+		for (Contato contatoLista : contato) {
+			System.out.println("Nome: " + contatoLista.getNome());
+			System.out.println("Email: " + contatoLista.getEmail());
+			System.out.println("Endere�o: " + contatoLista.getEndereco());
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+			System.out.println(
+					"Data de Nascimento: " + dateFormat.format(contatoLista.getDataNascimento().getTime()) + "\n");
+		}
 	}
 
 }

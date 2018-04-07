@@ -4,8 +4,8 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.List;
 
-import br.com.caelum.jdbc.dao.ContatoDAO;
-import br.com.caelum.jdbc.modelo.Contato;
+import br.com.caelum.agenda.dao.ContatoDAO;
+import br.com.caelum.agenda.modelo.Contato;
 
 public class TestaContato {
 

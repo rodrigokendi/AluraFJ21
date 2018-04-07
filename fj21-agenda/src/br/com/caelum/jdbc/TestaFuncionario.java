@@ -1,7 +1,7 @@
 package br.com.caelum.jdbc;
 
-import br.com.caelum.jdbc.dao.FuncionarioDAO;
-import br.com.caelum.jdbc.modelo.Funcionario;
+import br.com.caelum.agenda.dao.FuncionarioDAO;
+import br.com.caelum.agenda.modelo.Funcionario;
 
 public class TestaFuncionario {
 
