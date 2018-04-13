@@ -8,23 +8,23 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.caelum.agenda.dao.ContatoDAO;
 import br.com.caelum.agenda.modelo.Contato;
 
-public class RemoveContatoLogic implements Logica{
+public class FormAlteraLogic implements Logica {
+	 
 	@Override
-	
 	public String executa(HttpServletRequest req, HttpServletResponse resp) {
-		
-		long id = Long.parseLong(req.getParameter("id"));
-		
-		Contato contato = new Contato();
+
+	    long id = Long.parseLong(req.getParameter("id"));
+	    
+	    Contato contato = new Contato();
 		contato.setId(id);
 		
 		ContatoDAO dao = new ContatoDAO();
-		dao.remove(contato);
-		
-		
-		System.out.println("Excluindo contato...");
-		
-		return "super?logica=ListaContatosLogic";
+		contato = dao.pesquisaPorId(id);
+		req.setAttribute("Contato", contato);
+
+	
+		return "/WEB-INF/jsp/alteracontato.jsp";
 	}
- 
+	
+
 }

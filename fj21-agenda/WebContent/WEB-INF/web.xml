@@ -6,17 +6,17 @@
 
 	<error-page>
 		<exception-type>java.lang.Exception</exception-type>
-		<location>/500.html</location>
+		<location>/WEB-INF/jsp/500.html</location>
 	</error-page>
 	
 	<error-page>
 		<exception-type>java.text.ParseException</exception-type>
-		<location>/500.html</location>
+		<location>/WEB-INF/jsp/500.html</location>
 	</error-page>
 	
 	<error-page>
 	<error-code>404</error-code>
-	<location>/404.html</location>
+	<location>/WEB-INF/jsp/404.html</location>
 	</error-page>
 
 	<welcome-file-list>

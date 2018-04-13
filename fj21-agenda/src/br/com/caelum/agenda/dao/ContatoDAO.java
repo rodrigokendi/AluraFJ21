@@ -87,8 +87,10 @@ public class ContatoDAO {
 		return contatos;
 	}
 
-	public void pesquisaPorId(int id) {
+	public Contato pesquisaPorId(long id) {
 		String sql = "select * from contatos where id = ?";
+		
+		Contato contato = new Contato();
 
 		try {
 			PreparedStatement stmt = conexao.prepareStatement(sql);
@@ -96,7 +98,7 @@ public class ContatoDAO {
 			ResultSet rs = stmt.executeQuery();
 
 			if (!rs.next()) {
-				System.out.println("N�o h� registro!");
+				System.out.println("Nao ha registro!");
 			} else {
 
 				long id1 = rs.getLong("id");
@@ -105,7 +107,7 @@ public class ContatoDAO {
 				String endereco = rs.getString("endereco");
 				Date dataNascimento = rs.getDate("dataNascimento");
 
-				Contato contato = new Contato();
+				
 
 				contato.setId(id1);
 				contato.setNome(nome);
@@ -117,13 +119,15 @@ public class ContatoDAO {
 
 				contato.setDataNascimento(calendario);
 				contato.imprime();
-
+				
+	
+			
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
+		return contato;
 
 	}
 
@@ -175,8 +179,8 @@ public class ContatoDAO {
 	}
 
 	public void altera(Contato contato) {
-		String sql = "update contatos set nome = ? , email = ?, endereco = ?, dataNascimento = ? where id = ?";
-
+		String sql = "update contatos set nome = ? , email = ?, endereco = ?,dataNascimento = ? where id = ?";
+		 
 		try {
 
 			PreparedStatement stmt = conexao.prepareStatement(sql);
@@ -190,10 +194,10 @@ public class ContatoDAO {
 			int result = stmt.executeUpdate();
 
 			if (result > 0) {
-				System.out.println("Altera��o de dados com sucesso!");
+				System.out.println("Alteracao de dados com sucesso!");
 				contato.imprime();
 			} else {
-				System.out.println("Houve algum erro na atualiza��o de seus dados");
+				System.out.println("Houve algum erro na atualizacao de seus dados");
 			}
 
 		} catch (SQLException e) {

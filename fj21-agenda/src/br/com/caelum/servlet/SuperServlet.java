@@ -20,7 +20,7 @@ public class SuperServlet extends HttpServlet {
 		try {
 			String parametro = req.getParameter("logica");
 			parametro = "br.com.caelum.agenda.logica." + parametro;
-			Class classe = Class.forName(parametro);
+			Class<?> classe = Class.forName(parametro);
 			Logica logica = (Logica) classe.newInstance();
 			String pagina = logica.executa(req, resp);
 			
