@@ -12,9 +12,6 @@ public class FormContatoLogic implements Logica{
 	
 	@Override
 	public String executa(HttpServletRequest req, HttpServletResponse resp) {
-		
-	
-		
 
 		return "/WEB-INF/jsp/adiciona-contato.jsp";
 	}

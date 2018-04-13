@@ -7,9 +7,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Agenda FJ-21</title>
+<link  rel="stylesheet" href="assets/css/jquery.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" >
+<script src="assets/js/jquery.js"></script>
+<script src="assets/js/jquery-ui.js"></script><title>Agenda FJ-21</title>
 </head>
 <body>
+	<br >
 	<c:import url="/WEB-INF/jsp/cabecalho.jsp" />
 	<display:table name="listaContatos" export="false" id="contatos" >
 		<display:column title="Nome" property="nome" />
@@ -24,6 +28,8 @@
             <display:column title ="Ações" value="Remover" href="super?logica=RemoveContatoLogic" paramId="id" paramProperty="id"/>
           	<display:column title ="" value="Alterar" href="super?logica=FormAlteraLogic" paramId="id" paramProperty="id"/>
 	</display:table>
+	<hr >
+	<a href="super?logica=FormContatoLogic" class="btn" type="button">Adicionar Contato</a>
 	<c:import url="/WEB-INF/jsp/rodape.jsp" />
 </body>
 </html>

@@ -19,13 +19,13 @@
 <form action="/fj21-agenda/super?logica=AlteraContatoLogic" method="post">
 	<table class="table">
 		<thead>
-		   <th style="font-size: 30px">Lista de contatos</th> 
 			<tr bgcolor="#e5dcdc">
-				<th>ID</th>
+				<th></th>
 				<th>Nome</th>
 				<th>Email</th>
 				<th>Endereco</th>
-				<th>Data Nascimento</th>
+				<th>Data de Nascimento</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
