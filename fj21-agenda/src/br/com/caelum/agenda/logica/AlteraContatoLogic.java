@@ -1,10 +1,11 @@
 package br.com.caelum.agenda.logica;
 
+import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,8 @@ public class AlteraContatoLogic implements Logica{
 	
 	@Override
 	public String executa(HttpServletRequest req, HttpServletResponse resp) {
+		
+		Connection conexao =  (Connection) req.getAttribute("conexao");
 		
 		Contato contato = new Contato();
 		
@@ -37,7 +40,7 @@ public class AlteraContatoLogic implements Logica{
 		}
 		
 	
-		ContatoDAO dao = new ContatoDAO();
+		ContatoDAO dao = new ContatoDAO(conexao);
 		dao.altera(contato);
 		
 		return "/WEB-INF/jsp/contato-atualizado.jsp"; 	

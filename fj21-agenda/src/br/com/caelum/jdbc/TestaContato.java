@@ -10,59 +10,49 @@ import br.com.caelum.agenda.modelo.Contato;
 public class TestaContato {
 
 	public static void main(String[] args) {
-		try {
-			Contato contato = new Contato();
 
-			/*
-			 * altera *
-			 * contato.setId((long) 5); 
-			 * contato.setNome("Teste 1");
-			 * contato.setEmail("teste@rodrigo.com.br"); 
-			 * contato.setEndereco("Rua 1, 200");
-			 * 
-			 * Calendar calendario = Calendar.getInstance(); calendario.set(1993,
-			 * Calendar.MAY, 28);
-			 * 
-			 * contato.setDataNascimento(calendario);
-			 * 
-			 * ContatoDAO contatoDao = new ContatoDAO(); 
-			 * contatoDao.altera(contato)
-			 */
+		Contato contato = new Contato();
 
-			/*
-			 * remove 
-			 * contato.setId((long) 5); 
-			 * ContatoDAO contatoDao = new ContatoDAO();
-			 * contatoDao.remove(contato);
-			 */
-			
-			/*adiciona
-			 * contato.setNome("Teste 1");
-			 * contato.setEmail("teste@rodrigo.com.br"); 
-			 * contato.setEndereco("Rua 1, 200");
-			 * 
-			 * Calendar calendario = Calendar.getInstance(); calendario.set(1993,
-			 * Calendar.MAY, 28);
-			 * 
-			 * contato.setDataNascimento(calendario);
-			 * 
-			 * ContatoDAO contatoDao = new ContatoDAO(); 
-			 * contatoDao.adiciona(contato)
-			 */
-			
-			// contatoDao.pesquisaPorId(4);
+		/*
+		 * altera * contato.setId((long) 5); contato.setNome("Teste 1");
+		 * contato.setEmail("teste@rodrigo.com.br");
+		 * contato.setEndereco("Rua 1, 200");
+		 * 
+		 * Calendar calendario = Calendar.getInstance(); calendario.set(1993,
+		 * Calendar.MAY, 28);
+		 * 
+		 * contato.setDataNascimento(calendario);
+		 * 
+		 * ContatoDAO contatoDao = new ContatoDAO(); contatoDao.altera(contato)
+		 */
 
-			ContatoDAO contatoDao = new ContatoDAO();
-			//List<Contato> contatos = contatoDao.pesquisaPorNome("Teste");
-			//List<Contato> contatos = contatoDao.get(contato);
-			//contato.imprimeLista(contatos);
-		
+		/*
+		 * remove contato.setId((long) 5); ContatoDAO contatoDao = new
+		 * ContatoDAO(); contatoDao.remove(contato);
+		 */
 
-			contatoDao.close();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		/*
+		 * adiciona contato.setNome("Teste 1");
+		 * contato.setEmail("teste@rodrigo.com.br");
+		 * contato.setEndereco("Rua 1, 200");
+		 * 
+		 * Calendar calendario = Calendar.getInstance(); calendario.set(1993,
+		 * Calendar.MAY, 28);
+		 * 
+		 * contato.setDataNascimento(calendario);
+		 * 
+		 * ContatoDAO contatoDao = new ContatoDAO();
+		 * contatoDao.adiciona(contato)
+		 */
+
+		// contatoDao.pesquisaPorId(4);
+
+		// ContatoDAO contatoDao = new ContatoDAO();
+		// List<Contato> contatos = contatoDao.pesquisaPorNome("Teste");
+		// List<Contato> contatos = contatoDao.get(contato);
+		// contato.imprimeLista(contatos);
+
+		// contatoDao.close();
 
 	}
 

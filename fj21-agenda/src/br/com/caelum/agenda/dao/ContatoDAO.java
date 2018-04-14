@@ -16,19 +16,8 @@ public class ContatoDAO {
 
 	private Connection conexao;
 
-	public ContatoDAO() {
-		try {
-			this.conexao = new ConnectionFactory().getConnection();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public ContatoDAO(Connection conexao) {
+		this.conexao = conexao;
 	}
 
 	public void adiciona(Contato contato) {
@@ -60,7 +49,7 @@ public class ContatoDAO {
 		List<Contato> contatos = new ArrayList<>();
 
 		try {
-			PreparedStatement smtm = this.conexao.prepareStatement("select * from contatos order by nome");
+			PreparedStatement smtm = conexao.prepareStatement("select * from contatos order by nome");
 			ResultSet resultSet = smtm.executeQuery(); // control+2 L
 
 			while (resultSet.next()) {
@@ -89,7 +78,7 @@ public class ContatoDAO {
 
 	public Contato pesquisaPorId(long id) {
 		String sql = "select * from contatos where id = ?";
-		
+
 		Contato contato = new Contato();
 
 		try {
@@ -107,8 +96,6 @@ public class ContatoDAO {
 				String endereco = rs.getString("endereco");
 				Date dataNascimento = rs.getDate("dataNascimento");
 
-				
-
 				contato.setId(id1);
 				contato.setNome(nome);
 				contato.setEmail(email);
@@ -119,9 +106,7 @@ public class ContatoDAO {
 
 				contato.setDataNascimento(calendario);
 				contato.imprime();
-				
-	
-			
+
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -180,7 +165,7 @@ public class ContatoDAO {
 
 	public void altera(Contato contato) {
 		String sql = "update contatos set nome = ? , email = ?, endereco = ?,dataNascimento = ? where id = ?";
-		 
+
 		try {
 
 			PreparedStatement stmt = conexao.prepareStatement(sql);
@@ -228,10 +213,6 @@ public class ContatoDAO {
 			throw new RuntimeException(e);
 		}
 
-	}
-
-	public void close() throws SQLException {
-		conexao.close();
 	}
 
 }

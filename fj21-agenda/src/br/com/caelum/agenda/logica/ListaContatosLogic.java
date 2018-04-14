@@ -1,5 +1,6 @@
 package br.com.caelum.agenda.logica;
 
+import java.sql.Connection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +14,9 @@ public class ListaContatosLogic implements Logica{
 
 	public String executa(HttpServletRequest req, HttpServletResponse resp) {
 		
-		ContatoDAO dao = new ContatoDAO();
+		Connection conexao =  (Connection) req.getAttribute("conexao");
+		
+		ContatoDAO dao = new ContatoDAO(conexao);
 		List<Contato> contatos = dao.getList();
 		req.setAttribute("listaContatos", contatos);
 		
