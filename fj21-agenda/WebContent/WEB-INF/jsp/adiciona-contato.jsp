@@ -7,6 +7,8 @@
 <title>Formulário cadastro de contatos</title>
 <link  rel="stylesheet" href="assets/css/jquery.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" >
+<link rel="stylesheet" href="assets/css/screen.css" type="text/css"/>
+
 <script src="assets/js/jquery.js"></script>
 <script src="assets/js/jquery-ui.js"></script>
 </head>
