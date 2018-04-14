@@ -60,7 +60,7 @@ public class ContatoDAO {
 		List<Contato> contatos = new ArrayList<>();
 
 		try {
-			PreparedStatement smtm = this.conexao.prepareStatement("select * from contatos");
+			PreparedStatement smtm = this.conexao.prepareStatement("select * from contatos order by nome");
 			ResultSet resultSet = smtm.executeQuery(); // control+2 L
 
 			while (resultSet.next()) {
