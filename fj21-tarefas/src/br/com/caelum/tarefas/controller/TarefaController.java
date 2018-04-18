@@ -2,6 +2,7 @@ package br.com.caelum.tarefas.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -45,5 +46,15 @@ public class TarefaController {
 
 		return "tarefa/lista-tarefa";
 
+	}
+	
+	@RequestMapping("/remove")
+	public String remove(Tarefa tarefa, HttpServletRequest request) {
+		JdbcTarefaDao tarefaDao = new JdbcTarefaDao();
+		long id = Long.parseLong(request.getParameter("id"));
+		tarefa.setId(id);
+		tarefaDao.remove(tarefa);
+		
+		return "forward:lista";
 	}
 }

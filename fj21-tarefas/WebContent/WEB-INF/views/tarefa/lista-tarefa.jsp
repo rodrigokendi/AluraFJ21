@@ -19,7 +19,8 @@
         <display:column title="Finalizada" property="finalizado" />  
         <fmt:formatDate value="${listaTarefa.dataFinalizacao.time}" pattern="dd/MM/yyyy" var="dataFormatada"/>  
         <display:column title="Data de finalizacao" value="${dataFormatada}" />
-        <display:column title ="" value="Remover" href="/remove" paramId="id" paramProperty="id"/>
+        <display:column title ="" value="Remover" href="remove" paramId="id" paramProperty="id"/>
+    <%--      <display:column title ="" value="Remover" href="remove" paramName="id" paramProperty="id"/>--%>
 	</display:table>
 	<hr >
 	<c:import url="/WEB-INF/views/rodape.jsp" />
