@@ -19,10 +19,11 @@
         <display:column title="Finalizada" property="finalizado" />  
         <fmt:formatDate value="${listaTarefa.dataFinalizacao.time}" pattern="dd/MM/yyyy" var="dataFormatada"/>  
         <display:column title="Data de finalizacao" value="${dataFormatada}" />
-        <display:column title ="" value="Remover" href="remove" paramId="id" paramProperty="id"/>
-    <%--      <display:column title ="" value="Remover" href="remove" paramName="id" paramProperty="id"/>--%>
+        <display:column title ="" value="Remover" href="remove?id=method" paramId="id" paramProperty="id"/>
+   	    <display:column title ="" value="Alterar" href="buscaTarefa?id=method" paramId="id" paramProperty="id"/>
 	</display:table>
 	<hr >
+	<a href="formularioTarefa" class="btn" type="button">Adicionar Tarefa</a>
 	<c:import url="/WEB-INF/views/rodape.jsp" />
 </body>
 </html>

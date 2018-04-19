@@ -2,13 +2,14 @@ package br.com.caelum.tarefas.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.caelum.tarefas.dao.JdbcTarefaDao;
 import br.com.caelum.tarefas.modelo.Tarefa;
@@ -47,14 +48,40 @@ public class TarefaController {
 		return "tarefa/lista-tarefa";
 
 	}
-	
+
 	@RequestMapping("/remove")
-	public String remove(Tarefa tarefa, HttpServletRequest request) {
+	public String remove(Tarefa tarefa, @RequestParam("id") long id) {
 		JdbcTarefaDao tarefaDao = new JdbcTarefaDao();
-		long id = Long.parseLong(request.getParameter("id"));
 		tarefa.setId(id);
 		tarefaDao.remove(tarefa);
-		
-		return "forward:lista";
+
+		return "redirect:/tarefa/lista";
 	}
+
+	@RequestMapping("/buscaTarefa")
+	public String buscaTarefa(Tarefa tarefa, Model model, @RequestParam("id") long id) {
+		JdbcTarefaDao tarefaDao = new JdbcTarefaDao();
+		tarefa = tarefaDao.buscaPorId(id);
+
+		model.addAttribute("tarefa", tarefa);
+
+		return "tarefa/formulario-altera-tarefa";
+
+	}
+
+	@RequestMapping(value = "altera", method = { RequestMethod.POST })
+	public String altera(@Valid Tarefa tarefa, BindingResult result) {
+
+		if (result.hasFieldErrors()) {
+			return "tarefa/formulario-altera-tarefa";
+
+		}
+
+		JdbcTarefaDao tarefaDao = new JdbcTarefaDao();
+		tarefaDao.altera(tarefa);
+
+		return "redirect:/tarefa/lista";
+
+	}
+
 }

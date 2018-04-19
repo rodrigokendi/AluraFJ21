@@ -5,6 +5,8 @@ import java.util.Calendar;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Tarefa {
 	private Long id;
 	
@@ -12,6 +14,7 @@ public class Tarefa {
 	@Size(min = 5, message = "Preencha com no minimo 5 caracteres")
 	private String descricao;
 	private boolean finalizado;
+	@DateTimeFormat
 	private Calendar dataFinalizacao;
 
 	public Long getId() {
