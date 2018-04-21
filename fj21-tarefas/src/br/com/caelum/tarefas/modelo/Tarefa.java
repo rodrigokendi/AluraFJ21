@@ -2,18 +2,30 @@ package br.com.caelum.tarefas.modelo;
 
 import java.util.Calendar;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+
 import org.springframework.format.annotation.DateTimeFormat;
 
+@Entity
 public class Tarefa {
+	
+	@Id
+	@GeneratedValue
 	private Long id;
 	
 	@NotNull
 	@Size(min = 5, message = "Preencha com no minimo 5 caracteres")
 	private String descricao;
 	private boolean finalizado;
+	
+	@Temporal(TemporalType.DATE)
 	@DateTimeFormat
 	private Calendar dataFinalizacao;
 

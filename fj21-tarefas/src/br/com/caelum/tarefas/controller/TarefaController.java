@@ -4,83 +4,86 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.caelum.tarefas.dao.JdbcTarefaDao;
 import br.com.caelum.tarefas.modelo.Tarefa;
 
 @Controller
-@RequestMapping("tarefa")
+@RequestMapping("/tarefa")
 public class TarefaController {
 
-	@RequestMapping("/formularioTarefa")
-	public String formulario() {
-		return "tarefa/formulario-tarefa";
+	private final JdbcTarefaDao tarefaDao;
 
+	@Autowired
+	public TarefaController(JdbcTarefaDao tarefaDao) {
+		this.tarefaDao = tarefaDao;
 	}
 
-	@RequestMapping("/adicionaTarefa")
-	public String adicionaTarefa(@Valid Tarefa tarefa, BindingResult result) {
+	@RequestMapping("novaTarefa")
+	public String formulario() {
 
-		if (result.hasFieldErrors()) {
-			return "tarefa/formulario-tarefa";
+		return "tarefa/formulario";
+	}
 
+	@RequestMapping("adicionaTarefa")
+	public String adiciona(@Valid Tarefa tarefa, BindingResult result) {
+
+		if (result.hasFieldErrors("descricao")) {
+			return "tarefa/formulario";
 		}
 
-		JdbcTarefaDao tarefaDao = new JdbcTarefaDao();
 		tarefaDao.adiciona(tarefa);
 
-		return "tarefa/tarefa-adicionada";
-
+		return "tarefa/adicionada";
 	}
 
-	@RequestMapping("/lista")
+	@RequestMapping("listaTarefas")
 	public String lista(Model model) {
-		JdbcTarefaDao tarefaDao = new JdbcTarefaDao();
-		List<Tarefa> listaTarefa = tarefaDao.lista();
-		model.addAttribute("lista", listaTarefa);
 
-		return "tarefa/lista-tarefa";
+		List<Tarefa> tarefas = tarefaDao.lista();
 
+		model.addAttribute("tarefas", tarefas);
+
+		return "tarefa/lista";
 	}
 
-	@RequestMapping("/remove")
-	public String remove(Tarefa tarefa, @RequestParam("id") long id) {
-		JdbcTarefaDao tarefaDao = new JdbcTarefaDao();
-		tarefa.setId(id);
-		tarefaDao.remove(tarefa);
+	@RequestMapping("exibeTarefa")
+	public String exibe(Long id, Model model) {
 
-		return "redirect:/tarefa/lista";
-	}
-
-	@RequestMapping("/buscaTarefa")
-	public String buscaTarefa(Tarefa tarefa, Model model, @RequestParam("id") long id) {
-		JdbcTarefaDao tarefaDao = new JdbcTarefaDao();
-		tarefa = tarefaDao.buscaPorId(id);
-
+		Tarefa tarefa = tarefaDao.buscaPorId(id);
 		model.addAttribute("tarefa", tarefa);
 
-		return "tarefa/formulario-altera-tarefa";
-
+		return "tarefa/exibir";
 	}
 
-	@RequestMapping(value = "altera", method = { RequestMethod.POST })
-	public String altera(@Valid Tarefa tarefa, BindingResult result) {
+	@RequestMapping("modificarTarefa")
+	public String modificar(Tarefa tarefa) {
 
-		if (result.hasFieldErrors()) {
-			return "tarefa/formulario-altera-tarefa";
-
-		}
-
-		JdbcTarefaDao tarefaDao = new JdbcTarefaDao();
 		tarefaDao.altera(tarefa);
 
-		return "redirect:/tarefa/lista";
+		return "redirect:listaTarefas";
+	}
+
+	@RequestMapping("excluirTarefa")
+	public String excluir(Tarefa tarefa) {
+
+
+		tarefaDao.remove(tarefa);
+
+		return "redirect:listaTarefas";
+	}
+
+	@ResponseBody // assincrono
+	@RequestMapping("finalizar")
+	public void finalizar(Tarefa tarefa) {
+
+		tarefaDao.finaliza(tarefa.getId());
 
 	}
 

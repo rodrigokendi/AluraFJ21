@@ -24,8 +24,6 @@
 		<input type="email" name="email" /><br /> 
 		Endereco:<br> 
 		<input type="text" name="endereco" /><br /> 
-		Data de Nascimento:<br>
-		<tags:datas data="dataNascimento"/>
 		<br>
 		<button>Salvar</button>
 	
